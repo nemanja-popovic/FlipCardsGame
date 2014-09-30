@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Flip Cards";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head
+{
+    <link href="~/Content/CardFlip.css" rel="stylesheet" />
+
+    <script src="~/Scripts/handlebars-v1.3.0.js"></script>
+
+
+
+    <script src="~/Scripts/jquery.signalR-2.0.1.min.js"></script>
+    <script src="/signalr/hubs"></script>
+
+    <script src="~/Scripts/Main.js"></script>
+
+}
+
+
+<script id="card-template" type="text/x-handlebars-template">
+    <div class="row">
+        {{#each Pieces}}
+            <div id="{{Name}}" class="click panel col-lg-2">
+                <div class="front">
+                    <img src="{{Image}}" width="150" height="150" style="opacity:0;">
+                </div>
+                <div class="back">
+                    <img src="{{Image}}" width="150" height="150">
+                </div>
+            </div>
+      @*  {{#endRow @@index}}
+                    <div class="col-lg-2"></div>*@
+
+        {{/each}}
+    </div>
+   @* <div class="row">
+        {{/endRow}}
+        {{/each}}
+    </div>*@
+   
+</script>
+
+<h2>Flip Cards</h2>
+
+<div class="container" ng-controller="FlipCardsController">
+
+   <div class="row">
+       <div class="col-lg-2">
+           <div style="padding:2px;">
+               <h3 id="name">User</h3>
+               <input type="text" id="usernameTb" class="form-control"  />
+               <span class="help-block" id="alert">Please enter your name
+                   and click <b>join</b> to begin playing a match
+               </span>
+               <input type="button" id="join" value="join" class="btn btn-primary" />
+               <h3>Matches</h3>
+               <div>
+                   <ul id="wins" class="list-inline"></ul>
+               </div>
+           </div>
+       </div>
+
+       <div class="col-lg-10" id="board"></div>
+
+   </div>
+    <div class="row">
+        <p>Copyright 2013 - Nemanja Popovic</p>
+    </div>
+</div>
+
+<div id="winModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            
+            <div class="modal-body">
+                <h1 id="modal-headline"></h1>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
